@@ -4,11 +4,13 @@ import com.example.shoppingapi.models.ItemDto;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.*;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component // 컴포넌트 등록 (서비스나 컨트롤러, 엔티티처럼 스프링이 필요할 때 알아서 쓸 수 있도록 권한을 부여하는 개념)
 public class NaverShopSearch {
     public String search(String query) {
         RestTemplate rest = new RestTemplate();
