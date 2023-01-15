@@ -1,9 +1,13 @@
 package com.example.shoppingapi.utils;
 
+import com.example.shoppingapi.models.ItemDto;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NaverShopSearch {
     public String search(String query) {
@@ -25,10 +29,7 @@ public class NaverShopSearch {
         return response;
     }
 
-    public static void main(String[] args) {
-        NaverShopSearch naverShopSearch = new NaverShopSearch();
-        String result = naverShopSearch.search("아이맥");
-
+    public List<ItemDto> fromJSONtoItems(String result) {
         // 문자열 정보를 JSONObjet 로 바꾸기
         JSONObject rjson = new JSONObject(result);
         System.out.println("------- 문자열 정보를 JSONObjet 로 바꾸기 -------");
@@ -39,15 +40,23 @@ public class NaverShopSearch {
         System.out.println(items);
         // JSONArray 로 for 문 돌기
         System.out.println("------- JSONArray 로 for 문 돌기 -------");
-        for (int i=0; i<items.length(); i++) {
+
+        List<ItemDto> itemDtoList = new ArrayList<>();
+        for (int i = 0; i < items.length(); i++) {
             JSONObject itemJson = items.getJSONObject(i);
             System.out.println(itemJson);
 
+            ItemDto itemDto = new ItemDto(itemJson);
+            itemDtoList.add(itemDto);
+
             // JSONObject 에서 원하는 String, int 데이터 뽑기
-            String title = itemJson.getString("title");
-            String image = itemJson.getString("image");
-            String link = itemJson.getString("link");
-            int lprice = itemJson.getInt("lprice");
+            // String title = itemJson.getString("title")
+            // String image = itemJson.getString("image")
+            // String link = itemJson.getString("link")
+            // int lprice = itemJson.getInt("lprice")
         }
+
+        return itemDtoList;
     }
+    
 }
