@@ -1,5 +1,7 @@
 package com.example.shoppingapi.utils;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,6 +27,27 @@ public class NaverShopSearch {
 
     public static void main(String[] args) {
         NaverShopSearch naverShopSearch = new NaverShopSearch();
-        naverShopSearch.search("아이맥");
+        String result = naverShopSearch.search("아이맥");
+
+        // 문자열 정보를 JSONObjet 로 바꾸기
+        JSONObject rjson = new JSONObject(result);
+        System.out.println("------- 문자열 정보를 JSONObjet 로 바꾸기 -------");
+        System.out.println(rjson);
+        // JSONObject 에서 items 배열 꺼내기
+        JSONArray items = rjson.getJSONArray("items");
+        System.out.println("------- JSONObject 에서 items 배열 꺼내기 -------");
+        System.out.println(items);
+        // JSONArray 로 for 문 돌기
+        System.out.println("------- JSONArray 로 for 문 돌기 -------");
+        for (int i=0; i<items.length(); i++) {
+            JSONObject itemJson = items.getJSONObject(i);
+            System.out.println(itemJson);
+
+            // JSONObject 에서 원하는 String, int 데이터 뽑기
+            String title = itemJson.getString("title");
+            String image = itemJson.getString("image");
+            String link = itemJson.getString("link");
+            int lprice = itemJson.getInt("lprice");
+        }
     }
 }
