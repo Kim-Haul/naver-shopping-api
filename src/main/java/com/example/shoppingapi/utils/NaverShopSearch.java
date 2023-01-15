@@ -14,7 +14,7 @@ public class NaverShopSearch {
 
         HttpEntity<String> requestEntity = new HttpEntity<String>(body, headers);
         ResponseEntity<String> responseEntity = rest.exchange("https://openapi.naver.com/v1/search/shop.json?query=아이폰", HttpMethod.GET, requestEntity, String.class);
-        HttpStatusCode httpStatusCode = responseEntity.getStatusCode();
+        HttpStatus httpStatusCode = responseEntity.getStatusCode();
         int status = httpStatusCode.value();
         String response = responseEntity.getBody();
         System.out.println("Response status: " + status);
