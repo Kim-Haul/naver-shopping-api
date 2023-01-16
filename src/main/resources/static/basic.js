@@ -169,7 +169,7 @@ function setMyprice() {
      * 숙제! myprice 값 설정하기.
      * 1. id가 myprice 인 input 태그에서 값을 가져온다.
      * 2. 만약 값을 입력하지 않았으면 alert를 띄우고 중단한다.
-     * 3. PUT /api/product/${targetId} 에 data를 전달한다.
+     * 3. PUT /api/products/${targetId} 에 data를 전달한다.
      *    주의) contentType: "application/json",
      *         data: JSON.stringify({myprice: myprice}),
      *         빠뜨리지 말 것!
@@ -177,4 +177,21 @@ function setMyprice() {
      * 5, 성공적으로 등록되었음을 알리는 alert를 띄운다.
      * 6. 창을 새로고침한다. window.location.reload();
      */
+    let myprice = $('#myprice').val();
+    if (myprice == '') {
+        alert('값을 입력해주세요.')
+        return;
+    }
+    $.ajax({
+        type: "PUT",
+        url: `/api/products/${targetId}`,
+        contentType: "application/json",
+        data: JSON.stringify({myprice: myprice}),
+        success: function (response) {
+            $('#container').removeClass('active');
+            alert('관심 가격이 설정되었습니다.');
+            window.location.reload();
+        }
+    })
+
 }
