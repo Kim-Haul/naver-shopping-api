@@ -1,6 +1,6 @@
 ## RDS MySQL 세팅 및 EC2 연결
 
-```
+```java
 // RDBMS 연결(AWS 이용)
 1. RDS(MySQL)구매하기
 2. RDS 포트 열어주기
